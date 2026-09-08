@@ -1,30 +1,433 @@
-html, body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+/* ==========================================================================
+   CSE 340 Service Network — main.css
+   Palette inspired by JustServe.org brand guide
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Variables (design tokens)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand colors */
+  --color-blue: #009eb9;
+  --color-blue-dark: #00788c;
+  --color-orange: #ef5e39;
+  --color-orange-dark: #d2491f;
+  --color-green: #71aa32;
+
+  /* Neutrals */
+  --color-bg: #ffffff;
+  --color-bg-soft: #f5f6f7;
+  --color-gray-light: #e5e3e3;
+  --color-gray-mid: #989b9f;
+  --color-gray-dark: #444444;
+  --color-text: #2b2b2b;
+  --color-white: #ffffff;
+
+  /* Typography */
+  --font-heading: "Oswald", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Layout */
+  --max-width: 1100px;
+  --radius: 8px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --transition: 0.2s ease-in-out;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset / Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-blue-dark);
+  line-height: 1.25;
+  margin-top: 0;
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+h1 {
+  font-size: 2.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
-    }
-}   
+h2 {
+  font-size: 1.5rem;
+  color: var(--color-gray-dark);
+  font-weight: 400;
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+a {
+  color: var(--color-blue);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover,
+a:focus {
+  color: var(--color-orange);
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Visible focus outline for keyboard users (accessibility) */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-orange);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Navigation
+   -------------------------------------------------------------------------- */
+nav {
+  background-color: var(--color-blue);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+nav ul li {
+  margin: 0;
+}
+
+nav ul li a {
+  display: block;
+  padding: 1rem 1.25rem;
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+  background-color: var(--color-blue-dark);
+  border-bottom-color: var(--color-orange);
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. Main Content
+   -------------------------------------------------------------------------- */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding: 2.5rem 1.5rem;
+}
+
+main h1 {
+  margin-bottom: 0.5rem;
+}
+
+main h2 {
+  margin-bottom: 1.5rem;
+}
+
+.main-logo {
+  display: block;
+  max-width: 320px;
+  width: 100%;
+  margin: 2rem auto 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Reusable Components
+   (ready for organizations / projects / categories pages)
+   -------------------------------------------------------------------------- */
+
+/* Card grid layout */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.card h3 {
+  color: var(--color-blue-dark);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  color: var(--color-gray-dark);
+  font-size: 0.95rem;
+}
+
+/* Simple content list (for categories, etc.) */
+.content-list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.content-list li {
+  background-color: var(--color-bg-soft);
+  border-left: 4px solid var(--color-orange);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+}
+
+.content-list li a {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-blue-dark);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--color-orange);
+  background-color: var(--color-orange);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--color-orange-dark);
+  border-color: var(--color-orange-dark);
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-blue-dark);
+  border-color: var(--color-blue);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+/* Simple table styling (in case data is shown in tables) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  background-color: var(--color-white);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-gray-light);
+}
+
+th {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--color-white);
+  background-color: var(--color-blue);
+}
+
+tr:nth-child(even) {
+  background-color: var(--color-bg-soft);
+}
+
+/* --------------------------------------------------------------------------
+   5b. Organization / Partner List (main > ul)
+   Scoped to "main ul" so it never affects the nav bar's <ul>.
+   -------------------------------------------------------------------------- */
+main ul {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+main ul li {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-light);
+  border-left: 4px solid var(--color-blue);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+main ul li:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+main ul li img {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 4px;
+  background-color: var(--color-bg-soft);
+  padding: 0.25rem;
+}
+
+main ul li strong {
+  font-family: var(--font-heading);
+  color: var(--color-blue-dark);
+  font-size: 1.05rem;
+  margin-right: 0.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   6. Footer
+   -------------------------------------------------------------------------- */
+footer {
+  background-color: var(--color-gray-dark);
+  color: var(--color-gray-light);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: auto;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+
+/* Tablets and small laptops */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  main {
+    padding: 1.75rem 1.25rem;
+  }
+
+  nav ul {
+    justify-content: center;
+  }
+
+  nav ul li a {
+    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Phones */
+@media (max-width: 480px) {
+  nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav ul li a {
+    padding: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .main-logo {
+    max-width: 220px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  main ul li {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  main ul li img {
+    width: 56px;
+    height: 56px;
+  }
+}
