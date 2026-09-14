@@ -10,6 +10,8 @@ import { testConnection } from './src/models/db.js';
 // Import the getAllOrganizations function from the organizations.js file
 import { getAllOrganizations } from './src/models/organizations.js';
 
+// Import the getAllProjects function from the projects.js file
+import { getAllProjects } from './src/models/projects.js';
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "production";
@@ -46,13 +48,18 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/organizations', async (req, res) => {
-    const title = "Our Partner Organizations";
-    res.render('organizations', { title });
+    const organizations = await getAllOrganizations();
+     const title = "Our Partner Organizations";
+
+    res.render('organizations', { title, organizations });
 });
 
 app.get('/projects',  async (req, res) => {
+    const projects = await getAllProjects();
+    console.log(projects);
+
     const title = "Service Projects";
-    res.render('projects', { title });
+    res.render('projects', { title, projects });
 });
 
 app.get('/categories', async (req, res) => {
