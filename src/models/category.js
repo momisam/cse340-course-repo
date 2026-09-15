@@ -1,7 +1,7 @@
 import db from "./db.js";
 
 
-const getAllCategory = async () => {
+const getAllCategories = async () => {
     const query = `SELECT category_id, name FROM public.category`;
     
     const result = await db.query(query);
@@ -11,4 +11,4 @@ const getAllCategory = async () => {
 
 
 
-export { getAllCategory };
+export { getAllCategories };

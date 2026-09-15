@@ -3,15 +3,11 @@ import express from "express";
 // Import necessary modules for handling file paths
 import { fileURLToPath } from 'url';
 import path from 'path';
-
 // Import the testConnection function from the db.js file
 import { testConnection } from './src/models/db.js';
-
-// Import the getAllOrganizations function from the organizations.js file
 import { getAllOrganizations } from './src/models/organizations.js';
-
-// Import the getAllProjects function from the projects.js file
 import { getAllProjects } from './src/models/projects.js';
+import { getAllCategories } from './src/models/category.js';
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "production";
@@ -62,8 +58,10 @@ app.get('/projects',  async (req, res) => {
 });
 
 app.get('/categories', async (req, res) => {
+    const category = await getAllCategories();
+
     const title = "Service Categories";
-    res.render('categories', { title });
+    res.render('categories', { title, category });
 });
 
 
