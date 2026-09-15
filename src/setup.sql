@@ -54,3 +54,60 @@ VALUES
 (3, 'Senior Support Program', 'Coordinate volunteers to provide assistance and companionship to senior community members.', 'Ikeja Senior Center', '2026-12-28'),
 (3, 'Charity Donation Drive', 'Collect essential supplies and distribute them to local charitable organizations.', 'Ikeja Volunteer Center', '2027-01-04'),
 (3, 'Youth Mentorship Day', 'Connect volunteers with young people for educational guidance and personal development.', 'Ikeja Community Center', '2027-01-11');
+
+
+-- ========================================
+-- Category Table
+-- ========================================
+
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+-- ========================================
+-- Insert sample data: Categories
+-- ========================================
+
+INSERT INTO category (name)
+VALUES
+    ('Community Development'),
+    ('Environment'),
+    ('Education & Youth');
+
+-- ========================================
+-- Project_Category Table
+-- ========================================
+
+CREATE TABLE project_category (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    FOREIGN KEY (project_id) REFERENCES project(project_id),
+    FOREIGN KEY (category_id) REFERENCES category(category_id)
+);
+
+-- ========================================
+-- Insert sample data: Project_Category Table
+-- ========================================
+INSERT INTO project_category (project_id, category_id)
+VALUES
+    (1, 1),
+    (2, 1),
+    (3, 2),
+    (4, 1),
+    (5, 3),
+
+    (6, 2),
+    (7, 3),
+    (8, 2),
+    (9, 3),
+    (10, 3),
+
+    (11, 1),
+    (12, 2),
+    (13, 1),
+    (14, 1),
+    (15, 3);
+
+
