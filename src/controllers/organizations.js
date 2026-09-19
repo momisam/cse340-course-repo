@@ -1,6 +1,6 @@
 import { getAllOrganizations } from '../models/organizations.js';
 
-const showOrganizationPage =  async (req, res) => {
+const showOrganizationsPage =  async (req, res) => {
     const organizations = await getAllOrganizations();
     const title = "Our Partner Organizations";
 
@@ -9,4 +9,4 @@ const showOrganizationPage =  async (req, res) => {
 };
 
 
-export { showOrganizationPage };
+export { showOrganizationsPage };

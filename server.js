@@ -1,12 +1,8 @@
 import express from "express";
-
-// Import necessary modules for handling file paths
 import { fileURLToPath } from 'url';
 import path from 'path';
-// Import the testConnection function from the db.js file
 import { testConnection } from './src/models/db.js';
-
-
+import router from './src/routes.js';
 
 
 // Define the application environment
@@ -50,13 +46,8 @@ app.use((req, res, next) => {
     next();
 });
 
-/**
-  * Routes
-  */
-
-
-
-
+// Use the imported router to handle routes
+app.use(router);
 
 // Catch-all route for 404 errors
 app.use((req, res, next) => {
