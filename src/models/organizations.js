@@ -1,7 +1,11 @@
 import db from "./db.js";
 
 const getAllOrganizations = async () => {
-    const query = `SELECT organization_id, name, organization.description, contact_email, logo_filename
+    const query = `SELECT organization_id, 
+                        name, 
+                        organization.description, c
+                        ontact_email,
+                        logo_filename
                    FROM public.organization`;
     
     const result = await db.query(query);
@@ -9,6 +13,26 @@ const getAllOrganizations = async () => {
 };
 
 
+const getOrganizationDetails = async (organizationId) => {
+    const query = `
+    SELECT
+       organization_id,
+       name,
+       description,
+       contact_email,
+       logo_filename
+    FROM public.organization
+    WHERE organization_id = $1
+  `;
+
+  const queryParams = [organizationId];
+  const result = await db.query(query, queryParams);
+
+  //Return the first row of the result set, if no row are found
+  return result.row.length > 0 ? result.rows[0] : null;
+};
 
 
-export { getAllOrganizations };
+
+// Export the functions for use in other modules
+export { getAllOrganizations, getOrganizationDetails };
