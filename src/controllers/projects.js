@@ -1,5 +1,6 @@
 import { getUpcomingProjects,
-         getProjectDetails   
+         getProjectDetails,
+         getCategoriesByProjectId   
  } from '../models/projects.js';
 
 
@@ -22,9 +23,14 @@ const showProjectDetailsPage = async (req, res, next) => {
         error.status = 404;
         return next(error);
     }
+
+    const categories = await getCategoriesByProjectId(projectId);
     const title = "Service Project Details";
-    res.render('project', { title, project });
-}  
+
+
+    res.render('project', { title, project, categories });
+};  
+
 
 
 
