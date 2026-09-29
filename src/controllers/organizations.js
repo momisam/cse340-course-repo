@@ -17,7 +17,7 @@ const showOrganizationDetailsPage = async (req, res) => {
     const organizationId = req.params.id;
     const organizationDetails = await getOrganizationDetails(organizationId);
     const projects = await getProjectsByOrganizationId(organizationId);
-    const ttle = 'Organization Details';
+    const title = 'Organization Details';
 
     res.render('organization', { title, organizationDetails, projects });
 };
@@ -29,10 +29,10 @@ const showNewOrganizationForm = async (req, res) => {
 }
 
 const processNewOrganizationForm = async (req, res) => {
-    const { name, description, contact_email, logo_filename } = req.body;
+    const { name, description, contactEmail, logo_filename } = req.body;
     const logoFilename = 'placeholder-logo.png'; //// Use the placeholder logo for all new organizations
 
-    const organizationId = await createOrganization(name, description, contact_email, logoFilename);
+    const organizationId = await createOrganization(name, description, contactEmail, logoFilename);
 
     res.redirect(`/organization/${organizationId}`);
 
