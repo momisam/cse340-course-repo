@@ -1,8 +1,17 @@
 import expess from 'express';
 
 import { showHomePage } from './controllers/index.js';
-import { showOrganizationsPage, showNewOrganizationForm, processNewOrganizationForm, showEditOrganizationForm, processEditOrganizationForm, organizationValidation } from './controllers/organizations.js';
-import { showProjectsPage, showProjectDetailsPage } from './controllers/projects.js';
+import { showOrganizationsPage, 
+         showNewOrganizationForm, 
+         processNewOrganizationForm, 
+         showEditOrganizationForm, 
+         processEditOrganizationForm, 
+         organizationValidation } from './controllers/organizations.js';
+import { showProjectsPage, 
+         showProjectDetailsPage,
+         showNewProjectForm,
+         processNewProjectForm
+         } from './controllers/projects.js';
 import { showCategoriesPage, showCategoryDetailsPage } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
 import { showOrganizationDetailsPage } from './controllers/organizations.js';
@@ -24,6 +33,12 @@ router.get('/edit-organization/:id', showEditOrganizationForm);
 
 router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
+
+// Route for new project page
+router.get('/new-project', showNewProjectForm);
+
+// Route to handle new project form submission
+router.post('/new-project', processNewProjectForm);
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage)
 
