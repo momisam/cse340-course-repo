@@ -78,36 +78,37 @@ const processNewOrganizationForm = async (req, res) => {
 
 };
 
-const showEditOrganizationForm = async (req, res) => {
-    const organizationId = req.params.id;
-    const organizationDetails = await getOrganizationDetails(organizationId);
+const showEditOrganizationForm = async (req, res, next) => {
+  const organizationId = req.params.id;
+  const organizationDetails = await getOrganizationDetails(organizationId);
 
-    const title = 'Edit Organization';
-    res.render('edit-organization', { title, organizationDetails });
+  if (!organizationDetails) {
+    const err = new Error('Organization not found');
+    err.status = 404;
+    return next(err);
+  }
 
-    // Check for validation errors
-const results = validationResult(req);
-if (!results.isEmpty()) {
-    // Validation failed - loop through errors
-    results.array().forEach((error) => {
-        req.flash('error', error.msg);
-    });
-
-    // Redirect back to the edit organization form
-    return res.redirect('/edit-organization/' + req.params.id);
-}
+  const title = 'Edit Organization';
+  res.render('edit-organization', { title, organizationDetails });
 };
 
 const processEditOrganizationForm = async (req, res) => {
-    const organizationId = req.params.id;
-    const { name, description, contactEmail, logoFilename } = req.body;
+  const organizationId = req.params.id;
 
-    await updateOrganization(organizationId, name, description, contactEmail, logoFilename);
-    
-    // Set a success flash message
-    req.flash('success', 'Organization updated successfully!');
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    results.array().forEach((error) => {
+      req.flash('error', error.msg);
+    });
+    return res.redirect('/edit-organization/' + organizationId);
+  }
 
-    res.redirect(`/organization/${organizationId}`);
+  const { name, description, contactEmail, logoFilename } = req.body;
+
+  await updateOrganization(organizationId, name, description, contactEmail, logoFilename);
+
+  req.flash('success', 'Organization updated successfully!');
+  res.redirect(`/organization/${organizationId}`);
 };
 
 export { showOrganizationsPage, 
