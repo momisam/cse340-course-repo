@@ -2,7 +2,7 @@ import { body, validationResult } from 'express-validator';
 import { getUpcomingProjects,
          getProjectDetails,
          getCategoriesByProjectId,
-         createProject   
+         createProject, 
  } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 
@@ -92,6 +92,12 @@ const processNewProjectForm = async (req, res) => {
         return res.redirect('/new-project');
     }
 }
+
+
+
+
+
+
 
 export { 
     showProjectsPage, 

@@ -59,12 +59,10 @@ const updateCategoryAssignments = async(projectId, categoryIds) => {
     }
 }
 
-
 export { 
          getAllCategories, 
          getCategoryDetails, 
          getProjectsByCategoryId,
-         updateCategoryAssignments,
-         assignCategoryToProject
+         updateCategoryAssignments
         };
 

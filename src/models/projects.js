@@ -109,11 +109,15 @@ const createProject = async (title, description, location, date, organizationId)
     return result.rows[0].project_id;
 }
 
+
+
+
+
 export { 
     getAllProjects, 
     getProjectsByOrganizationId,
     getUpcomingProjects,
     getProjectDetails,
     createProject,
-    getCategoriesByProjectId
+    getCategoriesByProjectId,
 };
