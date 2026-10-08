@@ -1,3 +1,4 @@
+import { body, validationResult } from 'express-validator';
 import {
   getAllCategories,
   getCategoryDetails,
@@ -8,6 +9,15 @@ import {
 } from '../models/categories.js';
 
 import { getProjectDetails, getCategoriesByProjectId } from '../models/projects.js';
+
+// Validation rules for category form
+const categoryValidation = [
+    body('name')
+        .trim()
+        .notEmpty().withMessage('Category name is required')
+        .isLength({ min: 2, max: 100 }).withMessage('Category name must be between 2 and 100 characters')
+];
+
 
 const showCategoriesPage = async (req, res) => {
   const categories = await getAllCategories();
@@ -60,6 +70,14 @@ const showNewCategoryForm = async (req, res) => {
 };
 
 const processNewCategoryForm = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    errors.array().forEach((error) => {
+      req.flash('error', error.msg);
+    });
+    return res.redirect('/new-category');
+  }
+  
   const { name } = req.body;
 
   const categoryId = await createCategory(name);
@@ -84,6 +102,15 @@ const showEditCategoryForm = async (req, res, next) => {
 
 const processEditCategoryForm = async (req, res) => {
   const categoryId = req.params.id;
+  
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    errors.array().forEach((error) => {
+      req.flash('error', error.msg);
+    });
+    return res.redirect(`/edit-category/${categoryId}`);
+  }
+  
   const { name } = req.body;
 
   await updateCategory(categoryId, name);
