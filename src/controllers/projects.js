@@ -3,6 +3,7 @@ import { getUpcomingProjects,
          getProjectDetails,
          getCategoriesByProjectId,
          createProject, 
+         updateProject
  } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 
@@ -93,7 +94,33 @@ const processNewProjectForm = async (req, res) => {
     }
 }
 
+const showEditProjectForm = async (req, res, next) => {
+  const projectId = req.params.id;
 
+  const project = await getProjectDetails(projectId);
+
+  if (!project) {
+    const err = new Error('Service project not found');
+    err.status = 404;
+    return next(err);
+  }
+
+  const organizations = await getAllOrganizations();
+
+  const title = 'Edit Service Project';
+
+  res.render('edit-project', { title, project, organizations });
+};
+
+const processEditProjectForm = async (req, res) => {
+  const projectId = req.params.id;
+  const { organizationId, title, description, location, date } = req.body;
+
+  await updateProject(projectId, organizationId, title, description, location, date);
+
+  req.flash('success', 'Service project updated successfully!');
+  res.redirect(`/project/${projectId}`);
+};
 
 
 
@@ -104,5 +131,7 @@ export {
     showProjectDetailsPage,
     showNewProjectForm, 
     processNewProjectForm,
+    showEditProjectForm,
+    processEditProjectForm,
     projectValidation
 };
