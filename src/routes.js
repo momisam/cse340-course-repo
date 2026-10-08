@@ -1,25 +1,39 @@
 import expess from 'express';
 
 import { showHomePage } from './controllers/index.js';
-import { showOrganizationsPage, 
+import { 
+         showOrganizationsPage, 
          showNewOrganizationForm, 
          processNewOrganizationForm, 
          showEditOrganizationForm, 
          processEditOrganizationForm, 
-         organizationValidation } from './controllers/organizations.js';
-import { showProjectsPage, 
+         organizationValidation 
+        
+        } from './controllers/organizations.js';
+
+import { 
+         showProjectsPage, 
          showProjectDetailsPage,
          showNewProjectForm,
          processNewProjectForm,
          showEditProjectForm,
          processEditProjectForm,
          projectValidation
+
          } from './controllers/projects.js';
-import { showCategoriesPage, 
+
+import { 
+         showCategoriesPage, 
          showCategoryDetailsPage,
          showAssignCategoriesForm,
-         processAssignCategoriesForm
+         processAssignCategoriesForm,
+         showNewCategoryForm,
+         processNewCategoryForm,
+         showEditCategoryForm,
+         processEditCategoryForm
+
          } from './controllers/categories.js';
+         
 import { testErrorPage } from './controllers/errors.js';
 import { showOrganizationDetailsPage } from './controllers/organizations.js';
 
@@ -56,6 +70,10 @@ router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage)
 
+router.get('/new-category', showNewCategoryForm);
+router.post('/new-category', processNewCategoryForm);
+router.get('/edit-category/:id', showEditCategoryForm);
+router.post('/edit-category/:id', processEditCategoryForm);
 
 //error-handling routes
 router.get('/error', testErrorPage);
