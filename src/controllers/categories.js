@@ -130,5 +130,6 @@ export {
   showNewCategoryForm,
   processNewCategoryForm,
   showEditCategoryForm,
-  processEditCategoryForm
+  processEditCategoryForm,
+categoryValidation
 };
