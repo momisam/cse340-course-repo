@@ -1,4 +1,3 @@
-
 -- ========================================
 -- Organization Table
 -- ========================================
@@ -23,7 +22,6 @@ VALUES
 -- ========================================
 -- Service Project Table
 -- ========================================
-
 CREATE TABLE project (
     project_id SERIAL PRIMARY KEY,
     organization_id INT NOT NULL,
@@ -32,9 +30,9 @@ CREATE TABLE project (
     location VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
     FOREIGN KEY (organization_id) REFERENCES organization(organization_id)
-)
+);
 
-- ========================================
+-- ========================================
 -- Insert sample data: Projects
 -- ========================================
 INSERT INTO project (organization_id, title, description, location, date)
@@ -59,7 +57,6 @@ VALUES
 -- ========================================
 -- Category Table
 -- ========================================
-
 CREATE TABLE category (
     category_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
@@ -68,7 +65,6 @@ CREATE TABLE category (
 -- ========================================
 -- Insert sample data: Categories
 -- ========================================
-
 INSERT INTO category (name)
 VALUES
     ('Community Development'),
@@ -78,7 +74,6 @@ VALUES
 -- ========================================
 -- Project_Category Table
 -- ========================================
-
 CREATE TABLE project_category (
     project_id INT NOT NULL,
     category_id INT NOT NULL,
@@ -110,4 +105,23 @@ VALUES
     (14, 1),
     (15, 3);
 
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_description TEXT
+);
 
+
+INSERT INTO roles (role_name, role_description) VALUES 
+    ('user', 'Standard user with basic access'),
+    ('admin', 'Administrator with full system access');
+
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER REFERENCES roles(role_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
