@@ -34,8 +34,11 @@ import {
          categoryValidation
          } from './controllers/categories.js';
 
+import { showUserRegistrationForm, processUserRegistrationForm } from './controllers/users.js';
+
 import { testErrorPage } from './controllers/errors.js';
 import { showOrganizationDetailsPage } from './controllers/organizations.js';
+
 
 const router = expess.Router();
 
@@ -74,6 +77,9 @@ router.get('/new-category', showNewCategoryForm);
 router.post('/new-category', categoryValidation, processNewCategoryForm);
 router.get('/edit-category/:id', showEditCategoryForm);
 router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
+// User registration routes
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
 
 //error-handling routes
 router.get('/error', testErrorPage);
