@@ -1,13 +1,48 @@
 <%- include('partials/header') %>
 
-    <main>
-        <h1><%= title %></h1>
-        <h2>Welcome to the CSE 340 Service Network!</h2>
-<p>Our mission is to promote service across the world by connecting volunteers with service opportunities in their community.</p>
+    <main class="home">
 
-<img class="main-logo" src="images/cse340-service-network.png" alt="CSE 340 Service Network Logo">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-content">
+                <p class="hero-eyebrow">Welcome to the CSE 340 Service Network</p>
+                <h1><%= title %></h1>
+                <p class="hero-text">
+                    Our mission is to promote service across the world by connecting
+                    volunteers with service opportunities in their community.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn btn-hero-primary" href="/projects">Find Opportunities</a>
+                    <a class="btn btn-hero-secondary" href="/register">Join Us</a>
+                </div>
+            </div>
+            <div class="hero-media">
+                <img class="hero-logo" src="/images/cse340-service-network.png" alt="CSE 340 Service Network Logo">
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="home-section">
+            <h2>How It Works</h2>
+            <div class="feature-grid">
+                <article class="feature">
+                    <span class="feature-number">1</span>
+                    <h3>Discover</h3>
+                    <p>Browse partner organizations and service projects near you.</p>
+                </article>
+                <article class="feature">
+                    <span class="feature-number">2</span>
+                    <h3>Connect</h3>
+                    <p>Find causes that match your interests with our service categories.</p>
+                </article>
+                <article class="feature">
+                    <span class="feature-number">3</span>
+                    <h3>Serve</h3>
+                    <p>Sign up, show up, and make a real difference in your community.</p>
+                </article>
+            </div>
+        </section>
+
     </main>
 
 <%- include('partials/footer') %>
-
-
