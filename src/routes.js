@@ -40,6 +40,7 @@ import {
         showLoginForm,
         processLoginForm,
         requireLogin,
+        showUsersPage,
         showDashboard,
         processLogout,
         requireRole
@@ -54,10 +55,10 @@ const router = expess.Router();
 router.get('/', showHomePage);
 router.get('/organizations', showOrganizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
-router.get('/new-organization', requireRole('admin'), showNewOrganizationForm);
-router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm);
-router.post('/edit-organization/:id', requireRole('admin'), organizationValidation, processEditOrganizationForm);
-router.get('/edit-organization/:id', requireRole('admin'), showEditOrganizationForm);
+router.get('/new-organization', showNewOrganizationForm);
+router.post('/new-organization', organizationValidation, processNewOrganizationForm);
+router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+router.get('/edit-organization/:id', showEditOrganizationForm);
 
 router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
@@ -83,6 +84,7 @@ router.get('/login', showLoginForm);
 router.post('/login', processLoginForm);
 
 router.get('/dashboard', requireLogin, showDashboard);
+router.get('/users', requireRole('admin'), showUsersPage);
 router.get('/logout', processLogout);
 
 router.get('/error', testErrorPage);
