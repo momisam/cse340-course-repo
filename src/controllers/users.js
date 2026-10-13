@@ -44,7 +44,7 @@ const processLoginForm = async (req, res) => {
                 console.log('User logged in:', user);
             }
 
-            res.redirect('/');
+            res.redirect('/dashboard')
         } else {
             req.flash('error', 'Invalid email or password.');
             res.redirect('/login');
@@ -63,6 +63,16 @@ const requireLogin = (req, res, next) => {
     }
 };
 
+const showDashboard = (req, res) => {
+    const user = req.session.user;
+    res.render('dashboard', { 
+        title: 'Dashboard',
+        name: user.name,
+        email: user.email
+    });
+};
+
+
 const processLogout = async (req, res) => {
     if (req.session.user) {
         delete req.session.user;
@@ -72,6 +82,16 @@ const processLogout = async (req, res) => {
     res.redirect('/login');
 };
 
+const requireRole = (role) => {
+  return (req, res, next) => {
+    if (req.session.user && req.session.user.role_name === role) {
+      return next();
+    }
+
+    req.flash('error', 'You are not authorized to access that page.');
+    res.redirect('/');
+  };
+};
 
 
 export { 
@@ -80,4 +100,6 @@ export {
           showLoginForm,
           processLoginForm,
           requireLogin,
-          processLogout };
+          showDashboard,
+          processLogout,
+          requireRole };
