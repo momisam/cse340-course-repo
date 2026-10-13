@@ -1,4 +1,4 @@
-import expess from 'express';
+import express from 'express';
 
 import { showHomePage } from './controllers/index.js';
 import { 
@@ -50,15 +50,15 @@ import { testErrorPage } from './controllers/errors.js';
 import { showOrganizationDetailsPage } from './controllers/organizations.js';
 
 
-const router = expess.Router();
+const router = express.Router();
 
 router.get('/', showHomePage);
 router.get('/organizations', showOrganizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
-router.get('/new-organization', showNewOrganizationForm);
-router.post('/new-organization', organizationValidation, processNewOrganizationForm);
-router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
-router.get('/edit-organization/:id', showEditOrganizationForm);
+router.get('/new-organization', requireRole('admin'),  showNewOrganizationForm);
+router.post('/new-organization', requireRole('admin'),  organizationValidation, processNewOrganizationForm);
+router.post('/edit-organization/:id', requireRole('admin'), organizationValidation, processEditOrganizationForm);
+router.get('/edit-organization/:id', requireRole('admin'), showEditOrganizationForm);
 
 router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
