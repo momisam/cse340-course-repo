@@ -13,7 +13,9 @@
             </li>
     <% }); %>
     
-    <p><a href="/new-organization" class="btn">New organization</a></p>
+   <% if (user && user.role_name === 'admin') { %>
+    <a href="/new-organization">Add New Organization</a>
+    <% } %>
 
 </ul>
 
