@@ -6,6 +6,7 @@ import { getUpcomingProjects,
          updateProject
  } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
+import { isUserVolunteering } from '../models/volunteers.js';
 
 
 const projectValidation = [

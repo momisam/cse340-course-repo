@@ -125,3 +125,15 @@ CREATE TABLE users (
     role_id INTEGER REFERENCES roles(role_id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- ========================================
+-- Project_Volunteer Table
+-- ========================================
+
+CREATE TABLE project_volunteer (
+    project_id INT NOT NULL,
+    user_id INT NOT NULL,
+    PRIMARY KEY (project_id, user_id),
+    FOREIGN KEY (project_id) REFERENCES project(project_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
