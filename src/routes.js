@@ -18,6 +18,8 @@ import {
          processNewProjectForm,
          showEditProjectForm,
          processEditProjectForm,
+         addProjectVolunteer,
+         removeProjectVolunteer,
          projectValidation
 
          } from './controllers/projects.js';
@@ -82,6 +84,9 @@ router.post('/register', processUserRegistrationForm);
 
 router.get('/login', showLoginForm);
 router.post('/login', processLoginForm);
+
+router.post('/project/:id/volunteer', requireLogin, addProjectVolunteer);
+router.post('/project/:id/unvolunteer', requireLogin, removeProjectVolunteer);
 
 router.get('/dashboard', requireLogin, showDashboard);
 router.get('/users', requireRole('admin'), showUsersPage);
