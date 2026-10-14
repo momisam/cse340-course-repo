@@ -22,7 +22,8 @@
         <%= new Date(project.date).toLocaleDateString() %>
 
         <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
-          <button type="submit">Remove</button>
+          <input type="hidden" name="redirectTo" value="dashboard" />
+            <button type="submit">Remove</button>
         </form>
       </li>
     <% }); %>

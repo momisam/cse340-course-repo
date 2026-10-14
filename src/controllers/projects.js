@@ -149,9 +149,13 @@ const removeProjectVolunteer = async (req, res) => {
   await removeVolunteer(projectId, userId);
 
   req.flash('success', 'You have been removed as a volunteer for this project.');
+
+  if (req.body.redirectTo === 'dashboard') {
+    return res.redirect('/dashboard');
+  }
+
   res.redirect(`/project/${projectId}`);
 };
-
 
 
 
